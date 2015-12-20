@@ -4,84 +4,73 @@ import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
+import sun.misc.CompoundEnumeration;
 public class Data extends JPanel implements MouseListener{
 	JButton exit;
-	static JLabel need;
-	static JLabel count;
-	static JLabel score;
-	static int time=3;
-	static JLabel ltime;
+	static JLabel need,count,ltime,score,maxnum,lv;
+	static int time=90;
 	public Data(){
-		new Thread() {
-			public void run() {
-				while(time>0){
-					try{
-						Thread.sleep(1000);
-						time--;
-						Data.ltime.setText(""+time);
-					}catch (Exception e) {}
-				}
-			}
-		}.start();
+		lv = new JLabel("Level : "+Sprite.level);
+		maxnum = new JLabel("Max number : "+Sprite.maxnumber);
 		ltime = new JLabel(""+time);
-		add(ltime);
-		ltime.setSize(200,100);
-		ltime.setLocation(120, 470);
-		ltime.setFont(new Font("SansSerif", Font.BOLD, 80));
-		ltime.setForeground(Color.RED);
-		
-		score = new JLabel(""+Sprite.score);
-		add(score);
-		score.setSize(200,100);
-		score.setLocation(80, 40);
-		score.setFont(new Font("SansSerif", Font.BOLD, 70));
-		score.setForeground(Color.black);
-		
-		count = new JLabel("Clicked : "+Sprite.countclick);
-		add(count);
-		count.setSize(200,100);
-		count.setLocation(60, 350);
-		count.setFont(new Font("SansSerif", Font.BOLD, 40));
-		count.setForeground(Color.white);
-		
+		score = new JLabel("Score : "+Sprite.score);
+		count = new JLabel("Clicked : "+(Sprite.countclick));
 		need = new JLabel(""+Sprite.equal);
-		add(need);
-		need.setLocation(77,155);
-		need.setSize(100, 100);
-		need.setFont(new Font("SansSerif", Font.BOLD, 60));
-		need.setForeground(Color.white);
-		
+		addComponent(lv,200,100,60,300,null,-1,30,Color.WHITE);
+		addComponent(maxnum,400,100,60,250,null,-1,30,Color.WHITE);
+		addComponent(ltime,200,100,120,470,null,-1,80,Color.WHITE);
+		addComponent(score,500,100,20,40,null,-1,40,Color.BLACK);
+		addComponent(count,200,100,60,350,null,-1,30,Color.WHITE);
+		addComponent(need,100,100,77,155,null,-1,60,Color.WHITE);
 		setLayout(null);
 		exit = new JButton("ออกจากเกมส์");
 		exit.addMouseListener(this);
+		exit.setSize(120, 50);
 		exit.setLocation(120, 550);
 		//add(exit);
-		exit.setSize(120, 50);
 		setPreferredSize(new Dimension(300, 700));
 		setBackground(new Color(87, 159, 203));
-		
+	}
+	static void blink(){
+		new Thread(){public void run(){
+			try {
+				while(time>0){
+				ltime.setVisible(false);
+				Thread.sleep(100);
+				ltime.setVisible(true);
+				Thread.sleep(100);
+				}
+			} catch (Exception e) {			}
+		}}.start();
+	}
+	void addComponent(Component c,int sizea,int sizeb,int locatex,int locatey,String font,int style,int fontsize,Color color){
+		c.setSize(sizea,sizeb);
+		c.setLocation(locatex,locatey);
+		c.setForeground(color);
+		add(c);
+		if(font==null&&style==-1)c.setFont(new Font("SansSerif",Font.BOLD,fontsize));
+		else if(font==null&&style!=-1)c.setFont(new Font("SansSerif",style,fontsize));
+		else if(font!=null&&style==-1)c.setFont(new Font(font,Font.BOLD,fontsize));
+		else c.setFont(new Font(font,style,fontsize));
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent e){
 		if(e.getSource()==exit)
 			System.exit(0);
 	}
 	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
+	public void mouseEntered(MouseEvent e) {}
 	@Override
-	public void mouseExited(MouseEvent e) {
-	}
+	public void mouseExited(MouseEvent e) {}
 	@Override
-	public void mousePressed(MouseEvent e) {
-	}
+	public void mousePressed(MouseEvent e) {}
 	@Override
-	public void mouseReleased(MouseEvent e) {
-	}
+	public void mouseReleased(MouseEvent e) {}
 	ImageIcon m = new ImageIcon("pic//m.jpg");
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
 		g.drawImage(m.getImage(), -5, 0, this);
+		g.drawImage(new ImageIcon("pic//time.png").getImage(),60,500,this);
 	}
 }

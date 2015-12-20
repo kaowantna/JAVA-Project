@@ -1,30 +1,35 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 public class Playgame extends JPanel {
 	static int n=90;
 	static ArrayList<Sprite> sprite = new ArrayList<Sprite>();
 	static int[] positionX = new int[n];
 	static int[] positionY = new int[n];
 	static int[] position = new int[n];
-	static JLabel sum;
+	static JLabel sum,lvup,over;
 	public Playgame() {
-		new Thread() {
-			public void run() {
-				while(true){
-					//if(Data.time<=0)add(new GameOver());
-					try{
-						Thread.sleep(500);
-					}catch (Exception e) {}
-			}
-			}
-		}.start();
+		lvup = new JLabel("LEVEL UP!");
+		add(lvup);
+		lvup.setSize(2000,500);
+		lvup.setLocation(50,70);
+		lvup.setFont(new Font("SansSerif", Font.BOLD, 100));
+		lvup.setForeground(Color.RED);
+		lvup.setVisible(false);
+		over = new JLabel("GAME OVER!");
+		add(over);
+		over.setSize(2000,500);
+		over.setLocation(20,70);
+		over.setFont(new Font("SansSerif", Font.BOLD, 90));
+		over.setForeground(Color.RED);
+		over.setVisible(false);
 		sum = new JLabel(""+Sprite.sum);
 		add(sum);
-		sum.setSize(100,100);
-		sum.setLocation(280,-20);
-		sum.setFont(new Font("SansSerif", Font.BOLD, 70));
-		sum.setForeground(Color.BLACK);
+		sum.setSize(200,100);
+		sum.setLocation(280,-10);
+		sum.setFont(new Font("Slabo", Font.BOLD, 70));
+		sum.setForeground(Color.white);
 		setPreferredSize(new Dimension(750, 600));
 		setBackground(new Color(231, 146, 179));
 		setLayout(null);
@@ -47,7 +52,6 @@ public class Playgame extends JPanel {
 	ImageIcon m = new ImageIcon("pic//bgWood-0.jpg");
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		
 		g.drawImage(m.getImage(), 0, 0, this);
 	}
 }
