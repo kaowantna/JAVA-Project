@@ -1,4 +1,3 @@
 # PLUS EQUAL TEN
 # udomsub naikorn
-# CS-KMUTNB
 # THIS GAME WAS MADE BY JAVA
