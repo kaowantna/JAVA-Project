@@ -1,4 +1,4 @@
-# PLUS FOR SOMETHING?
+# PLUS EQUAL TEN
 # udomsub naikorn
 # CS-KMUTNB
-# JAVA-Project
+# THIS GAME WAS MADE BY JAVA
